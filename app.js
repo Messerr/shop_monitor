@@ -6,7 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-var uri = 'mongodb://admin:A123456@ds263460.mlab.com:63460/shopifydb';
+var uri = 'mongodb://localhost:27017/shopifydb';
 mongoose.connect(uri);
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
