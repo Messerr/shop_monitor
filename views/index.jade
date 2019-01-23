@@ -3,9 +3,10 @@ extends layout
 block content
   h1 Stores
   .stores
+    ul.store-list
     each item in storelist
-      ul.store-list
-        li #{item.url}
+        li: a(href='/store/' + item._id) #{item.url}
+        a(href='/deletestore/' + item._id) Delete
 
   h1 Add Store
     form(method='POST' action='/addstore')

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const Store = require('../models/store');
-
+var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,8 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/store/:id', function(req, res, next) {
-  const collection = db.collection('storelist');
-  collection.findById({_id: req.params._id}, function (err, store) {
+  Store.findById({_id: new mongoose.Types.ObjectId(req.params._id)}, function (err, store) {
     if (err) return next(err);
     res.render('storesingle', {store: store});
     console.log(store);
@@ -21,12 +21,19 @@ router.get('/store/:id', function(req, res, next) {
 
 router.post('/addstore', function(req, res){
   var collection = db.collection('storelist');
-  var newStore = new Store(req.body);
-  collection.insert(newStore, function(err, result) {
+  var store = new Store(req.body);
+  collection.insert(store, function(err, result) {
     res.send(
       (err === null) ? res.redirect('/') : { msg: err }
     );
   });
 });
 
+router.delete('/deletestore/:id', function(req, res) {
+  Store.remove({_id: req.params._id}, req.body, function(err, result) {
+    res.send(
+      (err === null) ? res.redirect('/') : { msg: err }
+    );
+  });
+});
 module.exports = router;
