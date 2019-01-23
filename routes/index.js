@@ -29,17 +29,13 @@ router.post('/addstore', function(req, res){
   })
 });
 
-router.delete('/deletestore/:id', function(req, res) {
-  Store.findByIdAndRemove({
-    _id: {_id: mongoose.Types.ObjectId(req.params.id)}
-  }, function (err) {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.json({});
-      console.log("remove id");
-    }
-  })
+router.get('/deletestore/:id', function(req, res) {
+  Store.findByIdAndRemove({_id: mongoose.Types.ObjectId(req.params.id)}, function(err) {
+        if (!err) {
+            res.redirect('/');
+        } else {
+            return console.log('Error deleting store!');
+        }
+    });
 });
 module.exports = router;
