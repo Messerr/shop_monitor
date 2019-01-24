@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const Store = require('../models/store');
+const Product = require('../models/product');
 var mongoose = require('mongoose');
-var ObjectId = require('mongodb').ObjectID;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var uri = 'mongodb://localhost:27017/shopifydb';
-mongoose.connect(uri);
+mongoose.connect(uri, {useNewUrlParser: true});
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
